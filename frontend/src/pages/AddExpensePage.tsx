@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import AddExpense from '../components/AddExpense';
 import './AddExpensePage.css';
 
 const AddExpensePage: React.FC = () => {
-  const navigate = useNavigate();
   const [refreshKey, setRefreshKey] = useState(0);
 
   const handleSuccess = () => {

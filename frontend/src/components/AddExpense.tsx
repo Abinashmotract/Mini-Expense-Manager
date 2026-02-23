@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { expenseApi, categoryApi, Category } from '../services/api';
+import React, { useState } from 'react';
+import { expenseApi } from '../services/api';
 
 interface AddExpenseProps {
   onSuccess?: () => void;

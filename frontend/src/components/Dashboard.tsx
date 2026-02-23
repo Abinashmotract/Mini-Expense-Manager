@@ -5,25 +5,24 @@ const Dashboard: React.FC = () => {
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
-  const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
 
   useEffect(() => {
+    const loadDashboardData = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        const selectedYear = new Date().getFullYear();
+        const selectedMonth = new Date().getMonth() + 1;
+        const dashboardData = await dashboardApi.getData(selectedYear, selectedMonth);
+        setData(dashboardData);
+      } catch (err: any) {
+        setError(err.message || 'Failed to load dashboard data');
+      } finally {
+        setLoading(false);
+      }
+    };
     loadDashboardData();
-  }, [selectedYear, selectedMonth]);
-
-  const loadDashboardData = async () => {
-    try {
-      setLoading(true);
-      setError(null);
-      const dashboardData = await dashboardApi.getData(selectedYear, selectedMonth);
-      setData(dashboardData);
-    } catch (err: any) {
-      setError(err.message || 'Failed to load dashboard data');
-    } finally {
-      setLoading(false);
-    }
-  };
+  }, []);
 
   if (loading) {
     return <div className="card loading">Loading dashboard...</div>;
@@ -97,7 +96,7 @@ const Dashboard: React.FC = () => {
           <div className="col-12 col-md-6">
             <div className="card">
               <div className="card-title">
-                <i className="fas fa-chart-pie"></i> monthly totals per category ({monthNames[selectedMonth - 1]})
+                <i className="fas fa-chart-pie"></i> monthly totals per category ({monthNames[new Date().getMonth()]})
               </div>
               <div className="category-bars">
                 {data.monthlyTotals.map((item: any, index: number) => {
