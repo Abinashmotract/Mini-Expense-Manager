@@ -1,13 +1,12 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { getCurrentMonthName } from '../utils/constants';
 import './TopNavbar.css';
 
 const TopNavbar: React.FC = () => {
   const location = useLocation();
   const currentDate = new Date();
-  const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 
-    'July', 'August', 'September', 'October', 'November', 'December'];
-  const currentMonth = monthNames[currentDate.getMonth()];
+  const currentMonth = getCurrentMonthName();
   const currentYear = currentDate.getFullYear();
 
   const isActive = (path: string) => {

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { dashboardApi, Expense } from '../services/api';
+import { getMonthNameByIndex } from '../utils/constants';
 
 const Dashboard: React.FC = () => {
   const [data, setData] = useState<any>(null);
@@ -40,9 +41,6 @@ const Dashboard: React.FC = () => {
     (sum: number, item: any) => sum + parseFloat(item.total),
     0
   );
-
-  const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
-    'July', 'August', 'September', 'October', 'November', 'December'];
 
   // Get category colors
   const getCategoryColor = (category: string) => {
@@ -96,7 +94,7 @@ const Dashboard: React.FC = () => {
           <div className="col-12 col-md-6">
             <div className="card">
               <div className="card-title">
-                <i className="fas fa-chart-pie"></i> monthly totals per category ({monthNames[new Date().getMonth()]})
+                <i className="fas fa-chart-pie"></i> monthly totals per category ({getMonthNameByIndex(new Date().getMonth())})
               </div>
               <div className="category-bars">
                 {data.monthlyTotals.map((item: any, index: number) => {

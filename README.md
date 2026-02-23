@@ -14,30 +14,22 @@ A simple expense tracking application with automatic categorization and anomaly 
 ## Technologies Used
 
 ### Frontend
-- React 18.2.0
-- TypeScript 4.9.5
-- React Router DOM 6.30.3
-- Bootstrap 5.3.8
-- Axios 1.6.2
-- Font Awesome 6.0.0
+- React with TypeScript
+- React Router DOM
+- Bootstrap
+- Axios
+- Font Awesome
 
 ### Backend
-- Node.js
-- Express 4.18.2
-- PostgreSQL (pg 8.11.3)
-- Multer 1.4.5 (for file uploads)
-- CSV Parser 3.0.0
-- CORS 2.8.5
-- dotenv 16.3.1
+- Node.js with Express
+- PostgreSQL
+- Multer (for file uploads)
+- CSV Parser
+- CORS
+- dotenv
 
 ### Database
-- PostgreSQL 12+
-
-## Prerequisites
-
-- Node.js (v14 or higher)
-- PostgreSQL (v12 or higher)
-- npm or yarn
+- PostgreSQL
 
 ## Setup Instructions
 
@@ -73,11 +65,11 @@ npm install
 3. Create a `.env` file in the backend directory with your database credentials:
 ```
 PORT=5000
-DB_HOST=dpg-d6e9js8gjchc738if5g0-a
+DB_HOST=localhost
 DB_PORT=5432
-DB_NAME=expense_manager_h1y2
-DB_USER=expense_manager_h1y2_user
-DB_PASSWORD=PghvnvYuRLHbQ9eLxSuRSRzemht5DtBm
+DB_NAME=expense_manager
+DB_USER=postgres
+DB_PASSWORD=your_password
 ```
 
 4. Start the backend server:
@@ -111,51 +103,19 @@ npm start
 
 The frontend will run on `http://localhost:3000`
 
-## Usage
+## How to Start
 
-### Adding Expenses
+1. Start the backend server first (from `backend` directory):
+   ```bash
+   npm start
+   ```
 
-1. Go to "Add Expense" page
-2. Fill in date, amount, vendor name, and description
-3. Click "Add Expense"
-4. Category is automatically assigned based on vendor name
+2. Start the frontend server (from `frontend` directory):
+   ```bash
+   npm start
+   ```
 
-### Uploading CSV
-
-1. Go to "Upload CSV" page
-2. Prepare a CSV file with columns: `date`, `amount`, `vendor_name`, `description`
-3. Select the CSV file and click "Upload CSV"
-
-Example CSV:
-```csv
-date,amount,vendor_name,description
-2024-01-15,250.50,Swiggy,Lunch order
-2024-01-16,500.00,Amazon,Office supplies
-```
-
-### Managing Vendor Mappings
-
-1. Go to "Vendor Mappings" page
-2. Click "Add Mapping"
-3. Enter vendor name and select category
-4. Expenses from this vendor will be automatically categorized
-
-### Viewing Dashboard
-
-1. Go to "Dashboard" page
-2. View monthly totals, category breakdown, top vendors, and anomalies
-
-## API Endpoints
-
-- `GET /api/expenses` - Get all expenses
-- `POST /api/expenses` - Add a new expense
-- `GET /api/expenses/anomalies` - Get all anomalies
-- `POST /api/expenses/upload-csv` - Upload CSV file
-- `GET /api/dashboard?year=2024&month=1` - Get dashboard data
-- `GET /api/categories` - Get all categories
-- `GET /api/vendor-mappings` - Get all vendor mappings
-- `POST /api/vendor-mappings` - Create a vendor mapping
-- `DELETE /api/vendor-mappings/:id` - Delete a vendor mapping
+3. Open your browser and navigate to `http://localhost:3000`
 
 ## Assumptions
 
@@ -168,34 +128,13 @@ date,amount,vendor_name,description
 
 ## Design Note
 
-**Rule-based Categorization**: The system uses a simple vendor-to-category mapping table. When an expense is added, it first checks for an exact vendor name match. If not found, it tries partial matching (case-insensitive). If still no match, it defaults to "Other" category. This is a simple approach that works well for known vendors but requires manual mapping for new vendors.
+**Rule-based Categorization**: The system uses a simple vendor-to-category mapping table stored in the database. When an expense is added, it first checks for an exact vendor name match in the mappings table. If not found, it tries partial matching (case-insensitive). If still no match, it defaults to "Other" category. This approach is simple and works well for known vendors but requires manual mapping for new vendors.
 
 **Anomaly Detection**: Anomalies are detected by comparing each expense amount to the average amount for its category. If an expense is more than 3× the category average, it's flagged as an anomaly. The average is calculated from all expenses in that category. This simple threshold-based approach is easy to understand but may flag legitimate large purchases.
 
 **Data Model**: The database uses three main tables - `categories` (predefined categories), `vendor_category_mappings` (vendor-to-category rules), and `expenses` (all expense records with category_id and is_anomaly flag). This simple structure makes queries fast and the logic straightforward.
 
 **Trade-offs**: The system prioritizes simplicity over sophistication. No machine learning is used for categorization - all rules are manually defined. Anomaly detection uses a fixed 3× multiplier rather than statistical methods. This makes the system easy to understand and maintain, but less flexible than more advanced solutions.
-
-## Project Structure
-
-```
-Expense Manager/
-├── backend/
-│   ├── controllers/     # Request handlers
-│   ├── db/             # Database connection and schema
-│   ├── models/          # Data models
-│   ├── routes/          # API routes
-│   ├── services/        # Business logic (categorization, anomaly detection)
-│   └── server.js        # Express server
-├── frontend/
-│   ├── public/          # Static files
-│   └── src/
-│       ├── components/  # React components
-│       ├── pages/       # Page components
-│       ├── services/    # API service layer
-│       └── App.tsx      # Main app component
-└── README.md
-```
 
 ## License
 
