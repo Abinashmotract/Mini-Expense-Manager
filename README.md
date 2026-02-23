@@ -65,11 +65,14 @@ npm install
 3. Create a `.env` file in the backend directory with your database credentials:
 ```
 PORT=5000
-DB_HOST=localhost
+DB_HOST=dpg-d6e9js8gjchc738if5g0-a
 DB_PORT=5432
-DB_NAME=expense_manager
-DB_USER=postgres
-DB_PASSWORD=your_password
+DB_NAME=expense_manager_h1y2
+DB_USER=expense_manager_h1y2_user
+DB_PASSWORD=PghvnvYuRLHbQ9eLxSuRSRzemht5DtBm
+INTERNAL_DATABASE_URL=postgresql://expense_manager_h1y2_user:PghvnvYuRLHbQ9eLxSuRSRzemht5DtBm@dpg-d6e9js8gjchc738if5g0-a/expense_manager_h1y2
+EXTERNAL_DATABASE_URL=postgresql://expense_manager_h1y2_user:PghvnvYuRLHbQ9eLxSuRSRzemht5DtBm@dpg-d6e9js8gjchc738if5g0-a.oregon-postgres.render.com/expense_manager_h1y2
+PSQL_COMMAND=PGPASSWORD=PghvnvYuRLHbQ9eLxSuRSRzemht5DtBm psql -h dpg-d6e9js8gjchc738if5g0-a.oregon-postgres.render.com -U expense_manager_h1y2_user expense_manager_h1y2
 ```
 
 4. Start the backend server:
@@ -116,6 +119,72 @@ The frontend will run on `http://localhost:3000`
    ```
 
 3. Open your browser and navigate to `http://localhost:3000`
+
+## Deployment on Render
+
+### Setting up Database Schema on Render
+
+After creating a PostgreSQL database on Render, you need to run the schema SQL to create tables. You can do this in one of the following ways:
+
+**Option 1: Using Render Database Console**
+1. Go to your Render dashboard
+2. Click on your PostgreSQL database
+3. Go to "Connect" tab
+4. Click "Connect via psql" or use the "Query" tab
+5. Copy and paste the contents of `backend/db/schema.sql` and run it
+
+**Option 2: Using psql from local machine**
+```bash
+# From the backend/db directory
+PGPASSWORD='PghvnvYuRLHbQ9eLxSuRSRzemht5DtBm' psql -h dpg-d6e9js8gjchc738if5g0-a -p 5432 -U expense_manager_h1y2_user -d expense_manager_h1y2 -f schema.sql
+```
+
+**Option 3: Using Node.js script (Recommended - Easiest Method)**
+
+1. Make sure your `.env` file in the backend directory has the Render database credentials (including `EXTERNAL_DATABASE_URL`)
+2. Navigate to backend directory:
+```bash
+cd backend
+```
+3. Run the setup script:
+```bash
+node db/setup-render-db.js
+```
+
+This script will:
+- Connect to your Render database using the external URL
+- Run the schema SQL to create all tables
+- Insert default categories and vendor mappings
+- Verify that everything was created successfully
+
+**If the script fails, use Option 4 below (Direct psql command)**
+
+**Option 4: Direct psql Command (Quick Fix - Use This if script doesn't work)**
+
+Run this command from your local machine (make sure you have psql installed):
+
+```bash
+cd backend
+cat db/schema.sql | PGPASSWORD='PghvnvYuRLHbQ9eLxSuRSRzemht5DtBm' psql -h dpg-d6e9js8gjchc738if5g0-a.oregon-postgres.render.com -p 5432 -U expense_manager_h1y2_user -d expense_manager_h1y2
+```
+
+Or using the file directly:
+```bash
+cd backend/db
+PGPASSWORD='PghvnvYuRLHbQ9eLxSuRSRzemht5DtBm' psql -h dpg-d6e9js8gjchc738if5g0-a.oregon-postgres.render.com -p 5432 -U expense_manager_h1y2_user -d expense_manager_h1y2 -f schema.sql
+```
+
+**✅ Schema Successfully Created!**
+
+After running the schema, you should see:
+- 3 tables created: `categories`, `vendor_category_mappings`, `expenses`
+- 7 categories inserted
+- 6 vendor mappings inserted
+
+Verify by visiting:
+- `https://mini-expense-manager.onrender.com/api/categories` (should return categories)
+- `https://mini-expense-manager.onrender.com/api/vendor-mappings` (should return vendor mappings)
+- `https://mini-expense-manager.onrender.com/api/expenses` (should return empty array, not an error)
 
 ## Assumptions
 
