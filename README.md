@@ -1,6 +1,6 @@
-# Expense Manager
+# Mini Expense Manager
 
-A full-stack expense tracking application with automatic categorization, anomaly detection, and comprehensive dashboard analytics.
+A simple expense tracking application with automatic categorization and anomaly detection.
 
 ## Features
 
@@ -11,11 +11,27 @@ A full-stack expense tracking application with automatic categorization, anomaly
 - **Dashboard**: View monthly totals by category, top vendors, and anomaly statistics
 - **Vendor Mappings**: Manage vendor-to-category mappings for automatic categorization
 
-## Tech Stack
+## Technologies Used
 
-- **Frontend**: React + TypeScript
-- **Backend**: Node.js + Express
-- **Database**: PostgreSQL
+### Frontend
+- React 18.2.0
+- TypeScript 4.9.5
+- React Router DOM 6.30.3
+- Bootstrap 5.3.8
+- Axios 1.6.2
+- Font Awesome 6.0.0
+
+### Backend
+- Node.js
+- Express 4.18.2
+- PostgreSQL (pg 8.11.3)
+- Multer 1.4.5 (for file uploads)
+- CSV Parser 3.0.0
+- CORS 2.8.5
+- dotenv 16.3.1
+
+### Database
+- PostgreSQL 12+
 
 ## Prerequisites
 
@@ -32,12 +48,12 @@ A full-stack expense tracking application with automatic categorization, anomaly
 createdb expense_manager
 ```
 
-2. Run the schema SQL to create tables and insert default data:
+2. Run the schema SQL to create tables:
 ```bash
 psql -d expense_manager -f backend/db/schema.sql
 ```
 
-Alternatively, you can connect to PostgreSQL and run the SQL file:
+Or connect with your PostgreSQL user:
 ```bash
 psql -U postgres -d expense_manager -f backend/db/schema.sql
 ```
@@ -54,27 +70,17 @@ cd backend
 npm install
 ```
 
-3. Create a `.env` file in the backend directory:
-```bash
-cp .env.example .env
-```
-
-4. Update the `.env` file with your PostgreSQL credentials:
+3. Create a `.env` file in the backend directory with your database credentials:
 ```
 PORT=5000
-DB_HOST=localhost
+DB_HOST=dpg-d6e9js8gjchc738if5g0-a
 DB_PORT=5432
-DB_NAME=expense_manager
-DB_USER=postgres
-DB_PASSWORD=your_password
+DB_NAME=expense_manager_h1y2
+DB_USER=expense_manager_h1y2_user
+DB_PASSWORD=PghvnvYuRLHbQ9eLxSuRSRzemht5DtBm
 ```
 
-5. Create the uploads directory:
-```bash
-mkdir uploads
-```
-
-6. Start the backend server:
+4. Start the backend server:
 ```bash
 npm start
 ```
@@ -98,12 +104,7 @@ cd frontend
 npm install
 ```
 
-3. Create a `.env` file in the frontend directory (optional, defaults to localhost:5000):
-```
-REACT_APP_API_URL=http://localhost:5000/api
-```
-
-4. Start the frontend development server:
+3. Start the frontend development server:
 ```bash
 npm start
 ```
@@ -114,97 +115,66 @@ The frontend will run on `http://localhost:3000`
 
 ### Adding Expenses
 
-1. Navigate to the "Add Expense" tab
-2. Fill in the date, amount, vendor name, and optional description
+1. Go to "Add Expense" page
+2. Fill in date, amount, vendor name, and description
 3. Click "Add Expense"
-4. The category will be automatically assigned based on vendor name
+4. Category is automatically assigned based on vendor name
 
 ### Uploading CSV
 
-1. Navigate to the "Upload CSV" tab
-2. Prepare a CSV file with the following columns:
-   - `date` (format: YYYY-MM-DD)
-   - `amount` (numeric)
-   - `vendor_name` (text)
-   - `description` (optional, text)
+1. Go to "Upload CSV" page
+2. Prepare a CSV file with columns: `date`, `amount`, `vendor_name`, `description`
 3. Select the CSV file and click "Upload CSV"
-4. The system will import all valid expenses and show any errors
 
 Example CSV:
 ```csv
 date,amount,vendor_name,description
 2024-01-15,250.50,Swiggy,Lunch order
 2024-01-16,500.00,Amazon,Office supplies
-2024-01-17,150.00,Uber,Commute to office
 ```
 
 ### Managing Vendor Mappings
 
-1. Navigate to the "Vendor Mappings" tab
-2. Click "+ Add Mapping"
-3. Enter a vendor name and select a category
-4. Click "Add Mapping"
-5. Expenses from this vendor will now be automatically categorized
+1. Go to "Vendor Mappings" page
+2. Click "Add Mapping"
+3. Enter vendor name and select category
+4. Expenses from this vendor will be automatically categorized
 
 ### Viewing Dashboard
 
-1. Navigate to the "Dashboard" tab
-2. Select the year and month to view
-3. View:
-   - Total monthly spend
-   - Monthly totals by category
-   - Top 5 vendors by total spend
-   - Anomaly count and recent anomalies
-
-### Viewing Expenses
-
-1. Navigate to the "All Expenses" tab
-2. View all expenses or filter to show only anomalies
-3. Anomalies are highlighted in red
+1. Go to "Dashboard" page
+2. View monthly totals, category breakdown, top vendors, and anomalies
 
 ## API Endpoints
 
-### Expenses
 - `GET /api/expenses` - Get all expenses
 - `POST /api/expenses` - Add a new expense
 - `GET /api/expenses/anomalies` - Get all anomalies
 - `POST /api/expenses/upload-csv` - Upload CSV file
-
-### Dashboard
 - `GET /api/dashboard?year=2024&month=1` - Get dashboard data
-
-### Categories
 - `GET /api/categories` - Get all categories
-
-### Vendor Mappings
 - `GET /api/vendor-mappings` - Get all vendor mappings
 - `POST /api/vendor-mappings` - Create a vendor mapping
 - `DELETE /api/vendor-mappings/:id` - Delete a vendor mapping
 
-## Default Categories
+## Assumptions
 
-The system comes with the following default categories:
-- Food
-- Transportation
-- Shopping
-- Bills
-- Entertainment
-- Healthcare
-- Other
+1. **Currency**: All amounts are in Indian Rupees (₹)
+2. **Date Format**: Dates are stored in YYYY-MM-DD format
+3. **Anomaly Threshold**: Fixed at 3× the category average (not configurable)
+4. **Vendor Matching**: Case-insensitive matching with partial string matching
+5. **Default Category**: Expenses without vendor mapping default to "Other" category
+6. **CSV Format**: CSV files must have exact column names: `date`, `amount`, `vendor_name`, `description`
 
-## Default Vendor Mappings
+## Design Note
 
-The system includes some default vendor mappings:
-- Swiggy → Food
-- Zomato → Food
-- Uber → Transportation
-- Ola → Transportation
-- Amazon → Shopping
-- Flipkart → Shopping
+**Rule-based Categorization**: The system uses a simple vendor-to-category mapping table. When an expense is added, it first checks for an exact vendor name match. If not found, it tries partial matching (case-insensitive). If still no match, it defaults to "Other" category. This is a simple approach that works well for known vendors but requires manual mapping for new vendors.
 
-## Anomaly Detection
+**Anomaly Detection**: Anomalies are detected by comparing each expense amount to the average amount for its category. If an expense is more than 3× the category average, it's flagged as an anomaly. The average is calculated from all expenses in that category. This simple threshold-based approach is easy to understand but may flag legitimate large purchases.
 
-An expense is flagged as an anomaly if its amount is more than 3× the average amount for its category. This helps identify unusual spending patterns.
+**Data Model**: The database uses three main tables - `categories` (predefined categories), `vendor_category_mappings` (vendor-to-category rules), and `expenses` (all expense records with category_id and is_anomaly flag). This simple structure makes queries fast and the logic straightforward.
+
+**Trade-offs**: The system prioritizes simplicity over sophistication. No machine learning is used for categorization - all rules are manually defined. Anomaly detection uses a fixed 3× multiplier rather than statistical methods. This makes the system easy to understand and maintain, but less flexible than more advanced solutions.
 
 ## Project Structure
 
@@ -213,20 +183,20 @@ Expense Manager/
 ├── backend/
 │   ├── controllers/     # Request handlers
 │   ├── db/             # Database connection and schema
-│   ├── models/         # Data models
-│   ├── routes/         # API routes
-│   ├── services/       # Business logic
-│   └── server.js       # Express server
+│   ├── models/          # Data models
+│   ├── routes/          # API routes
+│   ├── services/        # Business logic (categorization, anomaly detection)
+│   └── server.js        # Express server
 ├── frontend/
-│   ├── public/         # Static files
+│   ├── public/          # Static files
 │   └── src/
-│       ├── components/ # React components
-│       ├── services/   # API service layer
-│       └── App.tsx     # Main app component
+│       ├── components/  # React components
+│       ├── pages/       # Page components
+│       ├── services/    # API service layer
+│       └── App.tsx      # Main app component
 └── README.md
 ```
 
 ## License
 
 ISC
-# Mini-Expense-Manager

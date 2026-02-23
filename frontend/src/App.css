@@ -1,0 +1,308 @@
+/* ============================================
+   SHARED/COMMON STYLES ONLY
+   ============================================ */
+
+.App {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header styles removed - now in TopNavbar component */
+
+/* Cards - Common */
+.card {
+  background: white;
+  border-radius: 28px;
+  padding: 1.6rem 1.8rem;
+  box-shadow: 0 8px 24px rgba(0, 30, 20, 0.04);
+  margin-bottom: 1.8rem;
+  border: 1px solid #eaedf2;
+  transition: all 0.1s ease;
+  overflow: hidden;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: #0f2b3c;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-bottom: 1px dashed #dde3e9;
+  padding-bottom: 0.75rem;
+}
+
+.card-title i {
+  color: #2d6a4f;
+  width: 28px;
+  text-align: center;
+}
+
+/* Buttons - Common */
+.btn {
+  background: #1e3b33;
+  color: white;
+  border: none;
+  padding: 0.85rem 1rem;
+  border-radius: 40px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  border: 1px solid #17332a;
+  transition: 0.1s;
+  letter-spacing: 0.2px;
+}
+
+.btn:hover {
+  background: #2d5a4f;
+  transform: translateY(-1px);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background: white;
+  color: #1e293b;
+  border: 1px solid #cbd5e1;
+  font-weight: 500;
+}
+
+.btn-secondary:hover {
+  background: #f8fafc;
+  color: #1e293b;
+}
+
+.btn-secondary i {
+  color: #2d6a4f;
+}
+
+.btn-secondary:hover i {
+  color: #2d6a4f;
+}
+
+.btn-block {
+  width: 100%;
+}
+
+.btn-sm {
+  padding: 0.5rem 0.9rem;
+  font-size: 0.8rem;
+  border-radius: 25px;
+  width: auto;
+  min-width: auto;
+  white-space: nowrap;
+}
+
+.btn-secondary.btn-sm {
+  padding: 0.5rem 0.9rem;
+  font-size: 0.8rem;
+  border-radius: 25px;
+  white-space: nowrap;
+}
+
+.btn-secondary.btn-sm:hover {
+  background: #f8fafc;
+  color: #1e293b;
+  border-color: #cbd5e1;
+}
+
+/* Alerts - Common */
+.alert {
+  padding: 1rem;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  border: 1px solid;
+}
+
+.alert-success {
+  background: #d4edda;
+  color: #155724;
+  border-color: #c3e6cb;
+}
+
+.alert-error {
+  background: #f8d7da;
+  color: #721c24;
+  border-color: #f5c6cb;
+}
+
+/* Loading & Empty States - Common */
+.loading {
+  text-align: center;
+  padding: 2rem;
+  color: #666;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 3rem;
+  color: #999;
+}
+
+.empty-state h3 {
+  margin-bottom: 0.5rem;
+  color: #666;
+}
+
+/* Table - Common */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.table th,
+.table td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.table th {
+  background: #f8f9fa;
+  font-weight: 600;
+  color: #333;
+}
+
+.table tr:hover {
+  background: #f8f9fa;
+}
+
+/* Chip - Common */
+.chip {
+  background: #e9edf2;
+  padding: 0.25rem 1rem;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+/* Icon Green - Common */
+.icon-green {
+  color: #2d6a4f;
+}
+
+/* Footer - Common */
+.app-footer {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 0.8rem;
+  color: #798a9c;
+  border-top: 1px solid #dfe7ef;
+  padding-top: 1rem;
+  word-wrap: break-word;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN - COMMON ELEMENTS ONLY
+   ============================================ */
+
+/* Mobile First - Base styles for mobile */
+@media (max-width: 767px) {
+  .App {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .card {
+    padding: 1.2rem 1.4rem;
+    border-radius: 20px;
+    margin-bottom: 1.2rem;
+  }
+
+  .card-title {
+    font-size: 1.1rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .card-title i {
+    width: 24px;
+    font-size: 0.9rem;
+  }
+
+  .btn {
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .table {
+    font-size: 0.85rem;
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .table th,
+  .table td {
+    padding: 0.75rem 0.5rem;
+    white-space: nowrap;
+  }
+
+  .app-footer {
+    font-size: 0.75rem !important;
+    padding: 0.8rem 0.5rem !important;
+    margin-top: 1rem !important;
+  }
+}
+
+/* Small tablets and large phones */
+@media (min-width: 481px) and (max-width: 767px) {
+  .header h1 {
+    font-size: 1.7rem;
+  }
+}
+
+/* Tablet - Medium screens */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .header {
+    margin-bottom: 1.8rem;
+  }
+}
+
+/* Large screens */
+@media (min-width: 1024px) {
+  /* Large screen adjustments if needed */
+}
+
+/* Extra large screens */
+@media (min-width: 1440px) {
+  /* Extra large screen adjustments if needed */
+}
+
+/* Landscape orientation adjustments */
+@media (max-width: 1023px) and (orientation: landscape) {
+  .header {
+    margin-bottom: 1rem;
+  }
+
+  .card {
+    padding: 1rem 1.2rem;
+    margin-bottom: 1rem;
+  }
+}
+
+/* Print styles */
+@media print {
+  .header .badge,
+  .btn {
+    display: none;
+  }
+
+  .card {
+    page-break-inside: avoid;
+    box-shadow: none;
+    border: 1px solid #ddd;
+  }
+}

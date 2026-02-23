@@ -1,0 +1,52 @@
+.vendor-mappings-page {
+  width: 100%;
+  padding: 2rem;
+  margin: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Rule Badges */
+.rule-badge {
+  background: #f1f5f9;
+  border-radius: 30px;
+  padding: 0.25rem 1rem;
+  display: inline-block;
+  font-size: 0.9rem;
+  margin-right: 0.6rem;
+  margin-bottom: 0.5rem;
+  border: 1px solid #d4dfe9;
+}
+
+.rule-badge i {
+  color: #2d6a4f;
+  font-size: 0.8rem;
+  margin-right: 4px;
+}
+
+.rule-mapping {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0;
+}
+
+/* Responsive */
+@media (max-width: 767px) {
+  .vendor-mappings-page {
+    padding: 1rem;
+  }
+
+  .rule-mapping {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .rule-badge {
+    width: 100%;
+    margin-right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}

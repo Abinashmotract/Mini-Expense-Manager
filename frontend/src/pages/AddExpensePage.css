@@ -1,0 +1,81 @@
+.add-expense-page {
+  width: 100%;
+  padding: 2rem;
+  margin: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Expense Form */
+.expense-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem 1.2rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.form-field label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  color: #475569;
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea {
+  background: #f9fcff;
+  border: 1px solid #d8e0e8;
+  border-radius: 18px;
+  padding: 0.7rem 1rem;
+  font-size: 0.95rem;
+  outline: none;
+  transition: 0.15s;
+  font-family: inherit;
+  width: 100%;
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus {
+  border-color: #2d6a4f;
+  box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.15);
+  background: white;
+}
+
+.form-field textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.full-width {
+  grid-column: span 2;
+}
+
+/* Responsive */
+@media (max-width: 767px) {
+  .add-expense-page {
+    padding: 1rem;
+  }
+
+  .expense-form {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .form-field.full-width {
+    grid-column: span 1;
+  }
+}

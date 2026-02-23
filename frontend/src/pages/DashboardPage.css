@@ -1,0 +1,183 @@
+.dashboard-page {
+  width: 100%;
+  padding: 2rem;
+  margin: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.dashboard-page .container-fluid {
+  padding: 0;
+  max-width: 100%;
+}
+
+/* Summary Grid */
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.stat-card {
+  background: #f8fafc;
+  border-radius: 22px;
+  padding: 1.2rem 1rem;
+  border: 1px solid #dee6ee;
+}
+
+.stat-card .label {
+  font-size: 0.85rem;
+  color: #546e7a;
+  margin-bottom: 0.4rem;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.stat-card .value {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #0b2c22;
+}
+
+/* Category Bars */
+.category-bars {
+  margin: 1rem 0;
+}
+
+.cat-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.7rem 0;
+}
+
+.cat-name {
+  width: 85px;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.bar-bg {
+  flex: 1;
+  height: 32px;
+  background: #e6edf4;
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+}
+
+.bar-fill {
+  color: white;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  font-weight: 500;
+  transition: width 0.3s ease;
+}
+
+.bar-fill.food {
+  background: #2b6e4f;
+}
+
+.bar-fill.transport {
+  background: #0f5c7a;
+}
+
+.bar-fill.shopping {
+  background: #9e5f2b;
+}
+
+.bar-fill.entertainment {
+  background: #81468a;
+}
+
+.bar-fill.health {
+  background: #b23b3b;
+}
+
+.bar-fill.bills {
+  background: #5a7a9a;
+}
+
+.bar-fill.other {
+  background: #6b7280;
+}
+
+.cat-amount {
+  font-weight: 600;
+  min-width: 60px;
+  text-align: right;
+}
+
+/* Vendor List */
+.vendor-list {
+  list-style: none;
+}
+
+.vendor-list li {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid #ecf1f7;
+  font-size: 0.95rem;
+}
+
+.rank-icon {
+  color: #a9742c;
+  margin-right: 10px;
+}
+
+/* Anomalies Summary */
+.anomaly-summary {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.flag-badge {
+  background: #c2410c;
+  color: white;
+  padding: 0.3rem 1rem;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+hr {
+  border: none;
+  border-top: 2px dotted #cfddee;
+  margin: 1rem 0;
+}
+
+/* Responsive */
+@media (max-width: 767px) {
+  .dashboard-page {
+    padding: 1rem;
+  }
+
+  .summary-grid {
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+  }
+
+  .cat-row {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .cat-name {
+    width: 100%;
+  }
+
+  .bar-bg {
+    width: 100%;
+  }
+
+  .cat-amount {
+    width: 100%;
+    text-align: left;
+  }
+}
