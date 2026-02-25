@@ -214,89 +214,170 @@
   .App {
     width: 100%;
     max-width: 100%;
+    overflow-x: hidden;
   }
 
   .card {
-    padding: 1.2rem 1.4rem;
-    border-radius: 20px;
-    margin-bottom: 1.2rem;
+    padding: 1rem 1.2rem;
+    border-radius: 16px;
+    margin-bottom: 1rem;
   }
 
   .card-title {
-    font-size: 1.1rem;
-    margin-bottom: 1.2rem;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
   }
 
   .card-title i {
-    width: 24px;
-    font-size: 0.9rem;
+    width: 20px;
+    font-size: 0.85rem;
   }
 
   .btn {
     padding: 0.75rem 1rem;
-    font-size: 0.9rem;
+    font-size: 0.875rem;
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  .btn-sm {
+    padding: 0.6rem 0.9rem;
+    font-size: 0.8rem;
+    min-height: 40px;
   }
 
   .table {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     display: block;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
+    width: 100%;
+    border-radius: 8px;
   }
 
   .table th,
   .table td {
-    padding: 0.75rem 0.5rem;
+    padding: 0.6rem 0.4rem;
     white-space: nowrap;
+    min-width: 80px;
+  }
+
+  .table th {
+    font-size: 0.75rem;
+    position: sticky;
+    top: 0;
+    background: #f8f9fa;
+    z-index: 10;
+  }
+
+  /* Table wrapper for better mobile scrolling */
+  .table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+    margin: 1rem 0;
   }
 
   .app-footer {
-    font-size: 0.75rem !important;
-    padding: 0.8rem 0.5rem !important;
+    font-size: 0.7rem !important;
+    padding: 0.75rem 0.5rem !important;
     margin-top: 1rem !important;
+    line-height: 1.4;
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+
+  .alert {
+    padding: 0.75rem;
+    font-size: 0.85rem;
+  }
+
+  .chip {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.75rem;
   }
 }
 
 /* Small tablets and large phones */
 @media (min-width: 481px) and (max-width: 767px) {
-  .header h1 {
-    font-size: 1.7rem;
+  .card {
+    padding: 1.2rem 1.4rem;
+  }
+
+  .card-title {
+    font-size: 1.1rem;
   }
 }
 
 /* Tablet - Medium screens */
 @media (min-width: 768px) and (max-width: 1023px) {
-  .header {
-    margin-bottom: 1.8rem;
+  .card {
+    padding: 1.4rem 1.6rem;
+  }
+
+  .card-title {
+    font-size: 1.15rem;
+  }
+
+  .table {
+    font-size: 0.9rem;
+  }
+
+  .table th,
+  .table td {
+    padding: 0.85rem 0.75rem;
   }
 }
 
 /* Large screens */
 @media (min-width: 1024px) {
-  /* Large screen adjustments if needed */
+  .App {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
 }
 
 /* Extra large screens */
 @media (min-width: 1440px) {
-  /* Extra large screen adjustments if needed */
+  .App {
+    max-width: 1600px;
+  }
 }
 
 /* Landscape orientation adjustments */
 @media (max-width: 1023px) and (orientation: landscape) {
-  .header {
-    margin-bottom: 1rem;
-  }
-
   .card {
     padding: 1rem 1.2rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .card-title {
+    margin-bottom: 0.75rem;
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .btn,
+  .nav-menu-item,
+  .hamburger-menu {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  .form-field input,
+  .form-field select,
+  .form-field textarea {
+    font-size: 16px; /* Prevents zoom on iOS */
   }
 }
 
 /* Print styles */
 @media print {
-  .header .badge,
-  .btn {
+  .top-navbar,
+  .btn,
+  .hamburger-menu {
     display: none;
   }
 
@@ -304,5 +385,9 @@
     page-break-inside: avoid;
     box-shadow: none;
     border: 1px solid #ddd;
+  }
+
+  .app-footer {
+    display: none;
   }
 }

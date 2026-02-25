@@ -129,34 +129,101 @@
 /* Responsive */
 @media (max-width: 767px) {
   .expenses-page {
+    padding: 1rem 0.75rem;
+  }
+
+  .anomaly-list {
     padding: 1rem;
+    border-radius: 16px;
   }
 
   .anomaly-item {
     flex-direction: column;
     align-items: flex-start;
-    gap: 0.8rem;
+    gap: 0.75rem;
+    padding: 0.75rem 0;
+  }
+
+  .anomaly-icon {
+    width: 32px;
+    height: 32px;
+    font-size: 0.9rem;
   }
 
   .anomaly-detail {
     width: 100%;
     flex-direction: column;
     gap: 0.5rem;
+    font-size: 0.85rem;
   }
 
-  .expense-list-item {
-    flex-direction: column !important;
-    align-items: flex-start !important;
-    gap: 0.5rem;
+  .anomaly-amount {
+    font-size: 1rem;
   }
 
-  .expense-details {
-    grid-template-columns: 1fr;
+  .expense-item {
+    padding: 1rem;
+    margin-bottom: 0.75rem;
   }
 
   .expense-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 0.5rem;
+  }
+
+  .expense-amount {
+    font-size: 1.25rem;
+  }
+
+  .expense-details {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    margin-top: 0.75rem;
+    font-size: 0.85rem;
+  }
+
+  .expense-list-item {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.5rem;
+    padding: 0.75rem 0;
+    font-size: 0.85rem;
+  }
+
+  .badge-anomaly,
+  .badge-category {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.6rem;
+  }
+
+  .text-muted {
+    font-size: 0.8rem;
+  }
+}
+
+/* Tablet */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .expenses-page {
+    padding: 1.5rem;
+  }
+
+  .expense-details {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Small mobile */
+@media (max-width: 480px) {
+  .expenses-page {
+    padding: 0.75rem 0.5rem;
+  }
+
+  .anomaly-item {
+    gap: 0.5rem;
+  }
+
+  .expense-amount {
+    font-size: 1.1rem;
   }
 }

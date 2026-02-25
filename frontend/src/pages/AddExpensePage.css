@@ -67,15 +67,65 @@
 /* Responsive */
 @media (max-width: 767px) {
   .add-expense-page {
-    padding: 1rem;
+    padding: 1rem 0.75rem;
   }
 
   .expense-form {
     grid-template-columns: 1fr;
-    gap: 1rem;
+    gap: 0.875rem;
+  }
+
+  .form-field {
+    gap: 0.35rem;
+  }
+
+  .form-field label {
+    font-size: 0.75rem;
+  }
+
+  .form-field input,
+  .form-field select,
+  .form-field textarea {
+    padding: 0.65rem 0.875rem;
+    font-size: 0.9rem;
+    border-radius: 14px;
+  }
+
+  .form-field textarea {
+    min-height: 70px;
   }
 
   .form-field.full-width {
     grid-column: span 1;
+  }
+
+  .btn {
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+}
+
+/* Tablet */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .add-expense-page {
+    padding: 1.5rem;
+  }
+
+  .expense-form {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem 1.1rem;
+  }
+}
+
+/* Small mobile */
+@media (max-width: 480px) {
+  .add-expense-page {
+    padding: 0.75rem 0.5rem;
+  }
+
+  .form-field input,
+  .form-field select,
+  .form-field textarea {
+    font-size: 16px; /* Prevents zoom on iOS */
   }
 }
