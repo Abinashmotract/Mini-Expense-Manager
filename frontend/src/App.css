@@ -120,7 +120,7 @@
 
 /* Alerts - Common */
 .alert {
-  padding: 1rem;
+  padding: 2rem;
   border-radius: 12px;
   margin-bottom: 1rem;
   border: 1px solid;
@@ -165,7 +165,7 @@
 
 .table th,
 .table td {
-  padding: 1rem;
+  padding: 2rem;
   text-align: left;
   border-bottom: 1px solid #e0e0e0;
 }

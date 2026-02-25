@@ -92,11 +92,22 @@ const CSVUpload: React.FC<CSVUploadProps> = ({ onSuccess }) => {
             accept=".csv"
             onChange={handleFileChange}
             disabled={loading}
+            aria-label="Choose CSV file to upload"
           />
           <button type="submit" className="btn-secondary" disabled={loading || !file} style={{background: 'white', border: 'none', padding: '0 1.5rem'}}>
             <i className="fas fa-cloud-upload-alt"></i> {loading ? 'parsing...' : 'parse'}
           </button>
         </div>
+        {file && (
+          <p style={{fontSize: '0.85rem', marginTop: '0.5rem', color: '#2d6a4f', fontWeight: '500'}}>
+            <i className="fas fa-check-circle"></i> Selected: {file.name}
+          </p>
+        )}
+        {!file && (
+          <p style={{fontSize: '0.8rem', marginTop: '0.5rem', color: '#798a9c', fontStyle: 'italic'}}>
+            <i className="fas fa-file-csv"></i> No file chosen
+          </p>
+        )}
         <p style={{fontSize: '0.8rem', marginTop: '0.7rem', color: '#4b687c'}}>
           <i className="fas fa-info-circle"></i> Expected columns: Date, Amount, Vendor, Description
         </p>

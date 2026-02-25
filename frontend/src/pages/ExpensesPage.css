@@ -133,7 +133,7 @@
   }
 
   .anomaly-list {
-    padding: 1rem;
+    padding: 2rem;
     border-radius: 16px;
   }
 
@@ -162,7 +162,7 @@
   }
 
   .expense-item {
-    padding: 1rem;
+    padding: 2rem;
     margin-bottom: 0.75rem;
   }
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { getCurrentMonthName } from '../utils/constants';
 import './TopNavbar.css';
@@ -9,6 +9,8 @@ const TopNavbar: React.FC = () => {
   const currentMonth = getCurrentMonthName();
   const currentYear = currentDate.getFullYear();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   const isActive = (path: string) => {
     return location.pathname === path;
@@ -22,21 +24,64 @@ const TopNavbar: React.FC = () => {
     setIsMenuOpen(false);
   };
 
+  // Close menu when route changes
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [location.pathname]);
+
+  // Close menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: Event) => {
+      const target = event.target as Node;
+      if (
+        isMenuOpen &&
+        menuRef.current &&
+        buttonRef.current &&
+        !menuRef.current.contains(target) &&
+        !buttonRef.current.contains(target)
+      ) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    if (isMenuOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener('touchstart', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
+    };
+  }, [isMenuOpen]);
+
   return (
     <nav className="top-navbar">
       <div className="navbar-left">
-        <h1>
-          <i className="fas fa-receipt"></i> Mini Expense Manager
-        </h1>
+        <Link to="/" className='text-decoration-none'>
+          <h1>
+            <i className="fas fa-receipt"></i> Mini Expense Manager
+          </h1>
+        </Link>
         <div className="date-badge">
           <i className="fas fa-calendar-alt"></i> {currentMonth} {currentYear} · active
         </div>
-        <button className="hamburger-menu" onClick={toggleMenu} aria-label="Toggle menu">
+        <button 
+          ref={buttonRef}
+          className="hamburger-menu" 
+          onClick={toggleMenu} 
+          aria-label="Toggle menu"
+          aria-expanded={isMenuOpen}
+        >
           <i className={`fas ${isMenuOpen ? 'fa-times' : 'fa-bars'}`}></i>
         </button>
       </div>
-      
-      <div className={`navbar-menu ${isMenuOpen ? 'open' : ''}`}>
+
+      <div 
+        ref={menuRef}
+        className={`navbar-menu ${isMenuOpen ? 'open' : ''}`}
+        aria-hidden={!isMenuOpen}
+      >
         <Link to="/" className={`nav-menu-item ${isActive('/') ? 'active' : ''}`} onClick={closeMenu}>
           <i className="fas fa-chart-pie"></i>
           <span>Dashboard</span>
